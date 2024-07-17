@@ -67,7 +67,7 @@ class _QuizScreenState extends State<QuizScreen> {
             children: [
               const SizedBox(height: 40),
               SizedBox(
-                height: height * 0.03,
+                height: height * 0.032,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Stack(
@@ -100,6 +100,13 @@ class _QuizScreenState extends State<QuizScreen> {
                               ),
                             ),
                             SizedBox(width: width * 0.02),
+                            Center(
+                              child: Image.asset(
+                                'images/timer.png',
+                                width: 22,
+                                height: 22,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -112,7 +119,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 'Question:',
                 style: GoogleFonts.poppins(
                   color: Colors.black,
-                  fontSize: 24, // Decreased font size
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -120,7 +127,7 @@ class _QuizScreenState extends State<QuizScreen> {
               Text(
                 currentQuestion.question,
                 style: GoogleFonts.poppins(
-                  fontSize: 20, // Decreased font size
+                  fontSize: 20,
                 ),
               ),
               Expanded(

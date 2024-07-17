@@ -153,6 +153,13 @@ class ResultScreenState extends State<ResultScreen> {
 }
 
 
+
+
+
+
+//WITHOUT REWARD AWARD//
+
+
 // import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:project_quiz/model/questions_model.dart';
