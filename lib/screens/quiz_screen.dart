@@ -24,6 +24,7 @@ class _QuizScreenState extends State<QuizScreen> {
   int _currentIndex = 0;
   String _selectedAnswer = '';
   int _score = 0;
+  bool _answeredCorrectly = true;
 
   @override
   void initState() {
@@ -140,14 +141,18 @@ class _QuizScreenState extends State<QuizScreen> {
                       isSelected: answer == _selectedAnswer,
                       answer: answer,
                       correctAnswer: currentQuestion.correctAnswer,
+                      showCorrectAnswer: !_answeredCorrectly &&
+                          answer == currentQuestion.correctAnswer,
                       onTap: () {
                         setState(() {
                           _selectedAnswer = answer;
+                          _answeredCorrectly =
+                              answer == currentQuestion.correctAnswer;
+                          if (_answeredCorrectly) {
+                            _score++;
+                          }
                         });
 
-                        if (answer == currentQuestion.correctAnswer) {
-                          _score++;
-                        }
                         Future.delayed(const Duration(milliseconds: 500), () {
                           if (_currentIndex == widget.questions.length - 1) {
                             PushResultScreen(context);
@@ -155,6 +160,7 @@ class _QuizScreenState extends State<QuizScreen> {
                             setState(() {
                               _currentIndex++;
                               _selectedAnswer = '';
+                              _answeredCorrectly = true;
                             });
                           }
                         });
@@ -189,6 +195,7 @@ class AnswerTile extends StatelessWidget {
     required this.isSelected,
     required this.answer,
     required this.correctAnswer,
+    required this.showCorrectAnswer,
     required this.onTap,
   });
 
@@ -196,6 +203,7 @@ class AnswerTile extends StatelessWidget {
   final bool isSelected;
   final String answer;
   final String correctAnswer;
+  final bool showCorrectAnswer;
   final VoidCallback onTap;
 
   @override
@@ -227,10 +235,10 @@ class AnswerTile extends StatelessWidget {
   }
 
   Color get cardColor {
+    if (isSelected && answer != correctAnswer) return Colors.red;
+    if (showCorrectAnswer) return Colors.green;
     if (!isSelected) return Colors.blue;
-    if (answer == correctAnswer) {
-      return Colors.green;
-    }
-    return Colors.red;
+    if (answer == correctAnswer) return Colors.green;
+    return Colors.blue;
   }
 }
